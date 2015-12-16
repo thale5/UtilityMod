@@ -25,7 +25,7 @@ namespace UtilityMod
             init(inUseToolType, "CanAddSegment");
             init(inUseToolType, "CanAddNode", 4);
             init(inUseToolType, "CanAddNode", "CanAddNode5", 5);
-            init(inUseToolType, "CheckStartAndEnd");
+            // init(inUseToolType, "CheckStartAndEnd");
             init(typeof(NetInfo), "GetMinNodeDistance");
             netInfos = findBendingNetInfos();
         }
@@ -39,6 +39,7 @@ namespace UtilityMod
                 if (netInfos[i].m_enableBendingSegments)
                     bendingNetInfos.Add(netInfos[i]);
 
+            Util.DebugPrint(bendingNetInfos.Count.ToString(), "netinfos");
             return bendingNetInfos.ToArray();
         }
 
@@ -50,9 +51,9 @@ namespace UtilityMod
                 netInfos[i].m_enableBendingSegments = false;
         }
 
-        protected override void Revert()
+        protected override void Revert(bool cleaningUp)
         {
-            base.Revert();
+            base.Revert(cleaningUp);
 
             for (int i = 0; i < netInfos.Length; ++i)
                 netInfos[i].m_enableBendingSegments = true;

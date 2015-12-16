@@ -1,6 +1,8 @@
 ﻿using ColossalFramework;
 using ColossalFramework.Plugins;
+using ColossalFramework.UI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
@@ -12,14 +14,16 @@ namespace UtilityMod
         public static void PanelPrint(params string[] args)
         {
             DateTime now = System.DateTime.Now;
-            string s = String.Format("[UtilityMod] {0, -51} {1, 22} {2, 2}  {3}", String.Join(" ", args), now, Thread.CurrentThread.ManagedThreadId, (now.Ticks / 10000) / 1000f);
+            long millis = now.Ticks / 10000;
+            string s = String.Format("[UtilityMod] {0, -42} {1, 22} {2, 2}  {3}.{4}", String.Join(" ", args), now, Thread.CurrentThread.ManagedThreadId, millis / 1000, millis % 1000);
             DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, s);
         }
 
         public static void DebugPrint(params string[] args)
         {
             DateTime now = System.DateTime.Now;
-            string s = String.Format("[UtilityMod] {0, -51} {1, 22} {2, 2}  {3}", String.Join(" ", args), now, Thread.CurrentThread.ManagedThreadId, (now.Ticks / 10000) / 1000f);
+            long millis = now.Ticks / 10000;
+            string s = String.Format("[UtilityMod] {0, -42} {1, 22} {2, 2}  {3}.{4}", String.Join(" ", args), now, Thread.CurrentThread.ManagedThreadId, millis / 1000, millis % 1000);
             Debug.Log(s);
         }
 
@@ -47,6 +51,28 @@ namespace UtilityMod
 
             netToolFineType = null;
             return false;
+        }
+
+        public static UIComponent FindVisible(UIComponent root, string searchName)
+        {
+            if (root != null)
+            {
+                if (root.cachedName == searchName && root.isVisible)
+                    return root;
+
+                IList<UIComponent> childs = root.components;
+
+                if (childs != null)
+                    for (int i = 0; i < childs.Count; i++)
+                    {
+                        UIComponent c = FindVisible(childs[i], searchName);
+
+                        if (c != null)
+                            return c;
+                    }
+            }
+
+            return null;
         }
     }
 }

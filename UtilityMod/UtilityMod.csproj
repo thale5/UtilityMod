@@ -55,10 +55,12 @@
     <Compile Include="Anarchy.cs" />
     <Compile Include="Angles.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Dev.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedirectionHelper.cs" />
     <Compile Include="Script.cs" />
+    <Compile Include="Snap.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="DetourUtility.cs" />

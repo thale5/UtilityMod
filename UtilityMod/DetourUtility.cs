@@ -54,7 +54,7 @@ namespace UtilityMod
                 d.Deploy();
         }
 
-        protected override void Revert()
+        protected override void Revert(bool cleaningUp)
         {
             foreach (Detour d in detours)
                 d.Revert();
